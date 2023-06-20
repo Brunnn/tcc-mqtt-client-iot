@@ -32,6 +32,10 @@ function initClient() {
         console.log("Connected", a);
         if (brandNewClient)
             client.subscribe("client/" + agreedCredentialTopic, { qos: 2 });
+        else{
+            client.subscribe("devices/" + globalConfig.get("username"), { qos: 2 });
+            client.subscribe("devices/all", { qos: 2 });
+        }
     });
 
     //Error
@@ -67,7 +71,10 @@ function initClient() {
                 //after saving the credentials, reconnect with the new credentials
                 client.end();
                 initClient();
+                
         }
+
+     
     });
 }
 
